@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio LC — Cándida Zamorano López</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F9F7F2;
+      --text: #1A1A1A;
+      --accent: #D4C5A9;
+      --accent-light: #F0EBE0;
+      --accent-mid: #C8B89A;
+      --accent-dark: #7a6a52;
+      --footer-bg: #1C1C1C;
+      --border: #E5E5E5;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
+    .reveal-d3 { transition-delay: .3s; }
+    .reveal-d4 { transition-delay: .4s; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 56px;
+      background: rgba(249,247,242,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: padding .3s;
+    }
+    .nav-left { display: flex; align-items: center; gap: 18px; }
+    .nav-logo { font-family: var(--serif); font-weight: 700; font-size: 1rem; color: var(--text); text-decoration: none; letter-spacing: .01em; }
+    .nav-div { width: 1px; height: 20px; background: var(--border); }
+    .nav-loc { font-size: .68rem; text-transform: uppercase; letter-spacing: .15em; color: #999; }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* ─── SECTION JUMP BUTTONS ─── */
+    .jump-btn {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 100px;
+      font-size: .68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      text-decoration: none;
+      border: 1.5px solid var(--border);
+      color: #666;
+      background: transparent;
+      cursor: pointer;
+      transition: background .18s, color .18s, border-color .18s;
+      white-space: nowrap;
+    }
+    .jump-btn:hover, .jump-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+    .btn-cv { background: var(--text); color: #fff; border-color: var(--text); }
+    .btn-cv:hover { background: #333; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 56px 80px 56px;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px);} to { opacity:1; transform:translateY(0);} }
+    .hero-left > * { animation: fadeUp .75s ease both; }
+    .hero-left > *:nth-child(1){animation-delay:.1s}
+    .hero-left > *:nth-child(2){animation-delay:.25s}
+    .hero-left > *:nth-child(3){animation-delay:.4s}
+    .hero-left > *:nth-child(4){animation-delay:.55s}
+    .hero-left > *:nth-child(5){animation-delay:.7s}
+    .hero-eyebrow { font-size: .68rem; font-weight: 500; text-transform: uppercase; letter-spacing: .2em; color: #999; margin-bottom: 28px; }
+    .hero-name { font-family: var(--serif); font-size: clamp(3rem, 5vw, 5rem); font-weight: 700; line-height: 1.06; margin-bottom: 26px; }
+    .hero-name .hi { color: var(--accent-mid); }
+    .hero-sub { font-size: 1rem; color: #555; max-width: 440px; margin-bottom: 40px; line-height: 1.8; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 44px; }
+    .tag { padding: 6px 15px; background: var(--accent-light); border-radius: 100px; font-size: .68rem; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-dark); }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--text);color:#fff;border:none;cursor:pointer;border-radius:100px;font-family:var(--sans);font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s; }
+    .btn-primary:hover { background:#333; transform:translateY(-1px); }
+    .btn-secondary { background:transparent;color:var(--text);border:1.5px solid var(--text); }
+    .btn-secondary:hover { background:var(--text);color:#fff; }
+
+    .hero-right {
+      background: var(--accent-light);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 56px 56px 80px;
+      position: relative; overflow: hidden;
+      animation: fadeUp .9s ease .35s both;
+    }
+    .hero-right::before { content:'"'; font-family:var(--serif); font-size:26rem; color:var(--accent); opacity:.15; position:absolute; top:-40px; right:-20px; line-height:1; pointer-events:none; }
+    .hero-card { background:#fff; border-radius:20px; padding:34px 38px; box-shadow:0 4px 40px rgba(0,0,0,.07); position:relative;z-index:1; max-width:480px; }
+    .card-label { display:inline-block;padding:5px 13px;background:var(--accent-light);border-radius:100px;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--accent-dark);margin-bottom:16px; }
+    .card-quote { font-family:var(--serif);font-size:1.15rem;font-style:italic;line-height:1.6;color:var(--text);margin-bottom:18px; }
+    .card-author { font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:#999; }
+    .hero-stats { display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:18px; }
+    .stat { background:var(--accent-light);padding:20px 24px;border-radius:12px; }
+    .stat-n { font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1; }
+    .stat-l { font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#888;margin-top:5px; }
+
+    /* ─── SECTION WRAPPER ─── */
+    .section { padding: 90px 56px; max-width: 1240px; margin: 0 auto; }
+    .section-full { padding: 90px 56px; }
+    .section-full > .section-inner { max-width: 1240px; margin: 0 auto; }
+    .sep { border: none; border-top: 1px solid var(--border); margin: 0 56px; }
+
+    /* ─── SECTION HEADER ─── */
+    .sec-eyebrow { font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:#bbb;margin-bottom:10px; }
+    .sec-title { font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:50px; }
+    .sec-subtitle { font-family:var(--serif);font-size:1.3rem;font-weight:600;margin-bottom:14px;margin-top:40px;color:var(--text); }
+    .sec-sub3 { font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:10px;margin-top:30px;color:var(--text);font-style:italic; }
+
+    /* ─── PROSE ─── */
+    .prose p { font-size:.97rem;color:#444;line-height:1.85;margin-bottom:20px; }
+    .prose p:last-child { margin-bottom:0; }
+    .date-badge { display:inline-block;padding:4px 13px;background:var(--accent-light);border-radius:100px;font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-dark); }
+
+    /* ─── TWO-COL LAYOUT ─── */
+    .two-col { display:grid;grid-template-columns:1fr 2.2fr;gap:80px;align-items:start; }
+    .sticky-col { position:sticky;top:100px; }
+
+    /* ─── HIGHLIGHT CARD ─── */
+    .hl-card { background:var(--accent-light);border-radius:18px;padding:30px;margin-top:36px; }
+    .hl-card-lbl { font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--accent-dark);margin-bottom:10px; }
+    .hl-card-title { font-family:var(--serif);font-size:1.2rem;font-weight:700;line-height:1.3;margin-bottom:10px; }
+    .hl-card-desc { font-size:.83rem;color:#666;line-height:1.75; }
+
+    /* ─── COMPETENTIES GRID ─── */
+    .comp-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:22px; }
+    .comp-card { background:#fff;border-radius:18px;padding:32px;border:1px solid var(--border);transition:transform .2s,box-shadow .2s; }
+    .comp-card:hover { transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.08); }
+    .comp-icon { width:44px;height:44px;background:var(--accent-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px; }
+    .comp-title { font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:10px; }
+    .comp-desc { font-size:.83rem;color:#666;line-height:1.75; }
+
+    /* ─── QUOTE CARDS ─── */
+    .quotes-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
+    .q-card { background:#fff;border-radius:18px;padding:28px;border:1px solid var(--border); }
+    .q-mark { font-family:var(--serif);font-size:3.5rem;color:var(--accent);line-height:.8;margin-bottom:10px; }
+    .q-text { font-size:.88rem;color:#444;line-height:1.75;font-style:italic;margin-bottom:18px; }
+    .q-author { font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#999; }
+    .q-role { font-size:.68rem;color:#ccc;margin-top:3px; }
+
+    /* ─── REC CARDS ─── */
+    .recs-grid { display:grid;grid-template-columns:1fr 1fr;gap:22px; }
+    .rec-card { border:1px solid var(--border);border-radius:18px;padding:32px;transition:border-color .2s; }
+    .rec-card:hover { border-color:var(--accent-mid); }
+    .rec-text { font-size:.9rem;color:#555;line-height:1.82;margin-bottom:22px;font-style:italic; }
+    .rec-author { display:flex;align-items:center;gap:12px; }
+    .rec-avatar { width:40px;height:40px;background:var(--accent-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:.95rem;color:var(--accent-dark);flex-shrink:0; }
+    .rec-name { font-weight:600;font-size:.86rem; }
+    .rec-role-t { font-size:.72rem;color:#aaa;margin-top:2px; }
+
+    /* ─── CERT LIST ─── */
+    .cert-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+    .cert-item { display:flex;align-items:center;gap:14px;padding:18px 22px;background:#fff;border-radius:12px;border:1px solid var(--border); }
+    .cert-dot { width:9px;height:9px;border-radius:50%;background:var(--accent-mid);flex-shrink:0; }
+    .cert-nm { font-size:.86rem;font-weight:500;flex:1; }
+    .cert-yr { font-size:.7rem;color:#bbb;white-space:nowrap; }
+
+    /* ─── LIST ITEMS ─── */
+    .doc-list { list-style:none;padding-left:0;margin-top:10px;margin-bottom:20px; }
+    .doc-list li { font-size:.95rem;color:#444;line-height:1.85;padding:8px 0 8px 20px;position:relative;border-bottom:1px solid var(--border); }
+    .doc-list li:last-child { border-bottom:none; }
+    .doc-list li::before { content:"—";position:absolute;left:0;color:var(--accent-mid); }
+
+    /* ─── NAWOORD SPECIAL ─── */
+    .nawoord-box { background:var(--accent-light);border-radius:22px;padding:52px 56px;max-width:860px;margin:0 auto; }
+    .nawoord-box p { font-size:1.05rem;color:#444;line-height:1.9;margin-bottom:22px; }
+    .nawoord-box p:first-of-type { font-family:var(--serif);font-size:1.2rem;font-style:italic;color:var(--text); }
+    .nawoord-box p:last-child { margin-bottom:0; }
+
+    /* ─── SECTION BG ALTERNATES ─── */
+    .bg-white { background:#fff; }
+    .bg-accent { background:var(--accent-light); }
+
+    /* ─── FOOTER ─── */
+    footer { background:var(--footer-bg);color:#fff;padding:100px 56px 56px; }
+    .footer-inner { max-width:1240px;margin:0 auto; }
+    .footer-tag { font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,4.5rem);font-weight:700;line-height:1.08;margin-bottom:56px;max-width:760px; }
+    .footer-tag .acc { color:var(--accent-mid); }
+    .footer-bot { display:flex;align-items:center;justify-content:space-between;padding-top:36px;border-top:1px solid #2e2e2e; }
+    .footer-copy { font-size:.73rem;color:#555; }
+    .footer-links { display:flex;gap:22px; }
+    .footer-link { font-size:.73rem;color:#555;text-decoration:none;text-transform:uppercase;letter-spacing:.1em;transition:color .2s; }
+    .footer-link:hover { color:var(--accent-mid); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:960px) {
+      nav { padding:14px 24px; }
+      .nav-right { gap:6px; }
+      .jump-btn { font-size:.6rem; padding:5px 10px; }
+      .hero { grid-template-columns:1fr; min-height:auto; }
+      .hero-left { padding:90px 24px 48px; }
+      .hero-right { padding:36px 24px 60px; min-height:400px; }
+      .section { padding:64px 24px; }
+      .section-full { padding:64px 24px; }
+      .sep { margin:0 24px; }
+      .two-col { grid-template-columns:1fr; gap:36px; }
+      .sticky-col { position:static; }
+      .comp-grid { grid-template-columns:1fr; }
+      .quotes-grid { grid-template-columns:1fr; }
+      .recs-grid { grid-template-columns:1fr; }
+      .cert-grid { grid-template-columns:1fr; }
+      .nawoord-box { padding:36px 28px; }
+      footer { padding:64px 24px 40px; }
+      .footer-bot { flex-direction:column;gap:18px;text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="top-nav">
+  <div class="nav-left">
+    <a href="#hero" class="nav-logo">Candi Zamorano López</a>
+    <div class="nav-div"></div>
+    <span class="nav-loc">Portfolio LC · 2026</span>
+  </div>
+  <div class="nav-right">
+    <a href="#sec-inleiding"            class="jump-btn">1. Inleiding</a>
+    <a href="#sec-bevoegdheden"         class="jump-btn">2. Bevoegdheden</a>
+    <a href="#sec-evaluaties"           class="jump-btn">3. Evaluaties</a>
+    <a href="#sec-pop"                  class="jump-btn">4. POP</a>
+    <a href="#sec-werkgroepen"          class="jump-btn">5. Werkgroepen</a>
+    <a href="#sec-vraagbaak"            class="jump-btn">6. Vraagbaak</a>
+    <a href="#sec-voorbeeldfunctie"     class="jump-btn">7. Voorbeeldfunctie</a>
+    <a href="#sec-nawoord"              class="jump-btn">8. Nawoord</a>
+    <a href="#sec-cv" class="jump-btn btn-cv">CV</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero" class="hero" style="padding-left:0;padding-right:0">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Portfolio LC-kandidaat · Jac. P. Thijsse College · Castricum</p>
+    <h1 class="hero-name">Candi<br/><span class="hi">Zamorano</span><br/>López</h1>
+    <p class="hero-sub">Eerstegraads docent Spaans — vakinhoudelijk expert, begeleider van collega's en leerlingen, en gedreven voorstander van onderwijsinnovatie.</p>
+    <div class="hero-tags">
+      <span class="tag">1° Bevoegdheid Spaans</span>
+      <span class="tag">PWS-coördinator VWO</span>
+      <span class="tag">Mentor 5vF</span>
+      <span class="tag">OT MVT</span>
+      <span class="tag">DELE Examinator</span>
+      <span class="tag">clase.nl</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#sec-inleiding" class="btn-primary">Lees portfolio</a>
+      <span class="btn-primary btn-secondary" style="cursor:default">www.clase.nl</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <span class="card-label">✦ Aanbeveling sectieleider</span>
+      <p class="card-quote">"Haar loyaliteit, kennis en betrokkenheid maken haar tot een onmiskenbare aanwinst voor ons team. Ik kan me niet iemand beter voorstellen voor de rol van LC."</p>
+      <p class="card-author">— Juanita Grimberg-Fernández, Sectievoorzitter Spaans</p>
+    </div>
+    <div class="hero-stats" style="margin-top:16px">
+      <div class="stat" style="border-radius:12px 4px 4px 12px">
+        <div class="stat-n">20+</div>
+        <div class="stat-l">Jaar ervaring</div>
+      </div>
+      <div class="stat" style="border-radius:4px 12px 12px 4px">
+        <div class="stat-n">1°</div>
+        <div class="stat-l">Eerstegraads bevoegdheid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 1. INLEIDING ─── -->
+<hr class="sep" />
+<div id="sec-inleiding" class="section">
+  <p class="sec-eyebrow reveal">01 — Inleiding</p>
+  <h2 class="sec-title reveal">1. Inleiding</h2>
+  <div class="two-col">
+    <div class="sticky-col">
+      <div class="hl-card reveal">
+        <div class="hl-card-lbl">✦ LC-sollicitatie</div>
+        <div class="hl-card-title">Bewust, gemotiveerd en klaar</div>
+        <div class="hl-card-desc">Na jarenlange collegiale inzet en gerichte professionele ontwikkeling presenteert Candi haar eerste LC-portfolio — eerlijk, professioneel en volledig onderbouwd.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <p class="reveal">Met vertrouwen presenteer ik u mijn portfolio, waarin ik mijn ontwikkeling en kwaliteiten als LC-docent inzichtelijk maak. In dit document toon ik aan dat ik voldoe aan de kwaliteitscriteria die horen bij de LC-functie, en laat ik zien hoe ik mij het afgelopen jaar heb ontwikkeld binnen mijn vak, mijn sectie, de school en buiten de school.</p>
+      <p class="reveal reveal-d1">Dit is mijn eerste sollicitatie voor een LC-functie. In eerdere jaren heb ik bewust afgezien van deelname uit collegiale overwegingen. Vorig jaar heb ik niet meegedaan, omdat ik de terugkoppeling kreeg dat ik op dat moment geen mentoraat vervulde en dat mijn bescheidenheid maakte dat mijn bijdrage niet altijd volledig zichtbaar was.</p>
+      <p class="reveal reveal-d2">Deze feedback heb ik serieus genomen en is richtinggevend geweest voor mijn ontwikkeling in de afgelopen periode. In dit portfolio laat ik zien hoe ik met deze punten aan de slag ben gegaan. Ik heb mijn zichtbare bijdrage binnen de school verbreed, onder andere door mijn rol als PWS‑coördinator vwo, mijn mentoraat, mijn werkzaamheden binnen OT‑MVT, de werkgroep PWS toekomst en mijn inzet als vakinhoudelijk aanspreekpunt binnen de sectie.</p>
+      <p class="reveal reveal-d2">Daarnaast heb ik mijn expertise nadrukkelijker gedeeld binnen én buiten de school, zoals via publicaties, het regionale netwerk Spaans Groot Amsterdam en de begeleiding van collega's. Om een vollediger beeld te geven van wie ik ben als collega en docent, heb ik enkele collega's en (oude)leerlingen gevraagd een korte bijdrage te leveren.</p>
+      <p class="reveal reveal-d3">Omdat verschillende criteria nauw met elkaar samenhangen, heb ik ze logisch geclusterd. Zo komen a, b en k samen terug onder bevoegdheid en aanstelling, en zijn c, d en e gebundeld onder het onderdeel Evaluaties. De specialistische taken onder i komen op meerdere plaatsen terug omdat ze verweven zijn met mijn coördinerende, begeleidende en vakinhoudelijke rollen. Collega's, leidinggevenden en (oud-)leerlingen hebben een belangrijke bijdrage geleverd aan dit portfolio. Hun aanbevelingen en evaluaties bieden een waardevolle aanvulling op mijn eigen reflectie en geven een compleet beeld van mijn functioneren als docent en collega.</p>
+      <p class="reveal reveal-d3">Ik dank u voor uw tijd en aandacht en hoop dat dit portfolio u een helder, eerlijk en professioneel beeld geeft van mijn groei en mijn geschiktheid voor de LC‑functie.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 2. BEVOEGDHEDEN ─── -->
+<hr class="sep" />
+<div id="sec-bevoegdheden" class="section bg-white" style="padding-top:90px;padding-bottom:90px;max-width:100%">
+  <div style="max-width:1240px;margin:0 auto">
+  <p class="sec-eyebrow reveal">02 — Bevoegdheden, aanstelling en kerntaak (a, b en k)</p>
+  <h2 class="sec-title reveal">2. Bevoegdheden, aanstelling en kerntaak</h2>
+  <div class="two-col">
+    <div class="sticky-col">
+      <div class="cert-grid" style="grid-template-columns:1fr;gap:10px">
+        <div class="cert-item reveal"><div class="cert-dot"></div><div class="cert-nm">Eerstegraads Spaans (UvA)</div><div class="cert-yr">2002</div></div>
+        <div class="cert-item reveal reveal-d1"><div class="cert-dot"></div><div class="cert-nm">Licenciada Filología Inglesa (UCM Madrid)</div><div class="cert-yr">1996</div></div>
+        <div class="cert-item reveal reveal-d2"><div class="cert-dot"></div><div class="cert-nm">Diplomawaardering Nuffic</div><div class="cert-yr">Bijlage 22</div></div>
+        <div class="cert-item reveal reveal-d3"><div class="cert-dot"></div><div class="cert-nm">Akte van benoeming SVOK</div><div class="cert-yr">Bijlage 1</div></div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3 class="sec-subtitle reveal">2.1 Bevoegdheden</h3>
+      <p class="reveal">In bijlage 23 vindt u een kopie van mijn bevoegdheid van de eerstegraads lerarenopleiding Spaans, behaald op 19 december 2002 bij het Instituut voor de Lerarenopleiding, onderdeel van de Universiteit van Amsterdam.</p>
+      <p class="reveal reveal-d1">Tevens vindt u in bijlage 22 een kopie van mijn diplomawaardering van de Nuffic van mijn doctoraal diploma in de richting Engelse taal- en letterkunde (bijlage 21), behaald op 31 juli 1996 bij de Universidad Complutense de Madrid.</p>
+
+      <h3 class="sec-subtitle reveal">2.2 Aanstelling</h3>
+      <p class="reveal">In bijlage 1 vindt u mijn akte van benoeming voor het bijzonder voortgezet onderwijs van het SVOK, die is ondertekend op zesentwintig september. Hiermee benadruk ik mijn langdurige betrokkenheid en toewijding aan de organisatie, waar ik al sinds 2006 deel van uitmaak.</p>
+
+      <h3 class="sec-subtitle reveal">2.3 Kerntaak</h3>
+      <p class="reveal">Een print van mijn rooster zoals het er dit jaar uitzag vind u in bijlage 3. Daarin is duidelijk te zien dat mijn voornaamste werkzaamheden bestaan uit lesgeven.</p>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ─── 3. EVALUATIES ─── -->
+<hr class="sep" />
+<div id="sec-evaluaties" class="section">
+  <p class="sec-eyebrow reveal">03 — Evaluaties (c, d, e en i)</p>
+  <h2 class="sec-title reveal">3. Evaluaties</h2>
+  <div class="two-col">
+    <div class="sticky-col">
+      <div class="hl-card reveal">
+        <div class="hl-card-title">Foco — najaarsnummer</div>
+        <div class="hl-card-desc">Een les werd gepubliceerd in het vaktijdschrift FOCO van de Vereniging Docenten Spaans als voorbeeld van integratie van cultuur, differentiatie en interactieve middelen.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3 class="sec-subtitle reveal">3.1 Gesprekscyclus</h3>
+      <p class="reveal">Voor de positieve beoordeling van de gesprekscyclus verwijs ik u naar het verslag lesbezoek (bijlage 10) en de evaluatie leidinggevende van Hatice Güzeler (bijlage 8) en naar de lesbezoek leidinggevende van Mirjam Kisteman (bijlage 9). Bij deze evaluatie staat veel in "Goed". Deze evaluatie toont aan dat mijn professionele ontwikkeling en inzet worden gewaardeerd binnen de schoolorganisatie. In de lesbezoek evaluatie van leidinggevende Mirjam Kisteman is te lezen dat het een leuke, goed voorbereide les was met verschillende werkvormen. Het is ook te lezen dat ik vrijwel de hele les Spaans spreek en dat te zien is dat leerlingen mij goed begrijpen. In de lesboek evaluatie van leidinggevende Hatice Güzeller is te lezen dat het een mooie afwisselende les was met verschillende werkvormen, formatief handelen, interactieve opdrachten en differentiëren in lesstof. In bijlage 11 kunt u de indicatoren van deze lesbezoeken terugvinden.</p>
+      <p class="reveal reveal-d1">Het valt op dat voor de indicator Differentiatie 2.6 staat. Dat wijt ik aan het feit dat bij het lesbezoek van leidinggevende Mirjam Kisteman 1.8 hiervoor staat. In het daaropvolgende gesprek is dit punt expliciet besproken. Daarbij gaf ik aan dat er in de betreffende les wel degelijk gedifferentieerd werd. Na toelichting werd dit door Mirjam Kisteman onderschreven, waarbij werd aangegeven dat de differentiatie minder herkenbaar was door de taalbarrière. Tijdens deze les hebben leerlingen namelijk op eigen niveau gelezen en is de lesstof op drie verschillende niveaus aangeboden. Deze les werd in het najaar nummer van het vaktijdschrift FOCO van de Vereniging Docenten Spaans in Nederland gepubliceerd als voorbeeld van integratie van cultuur, differentiatie en interactieve middelen.</p>
+      <p class="reveal reveal-d2">Daarnaast verwijs ik naar de evaluatie van collega Juanita Grimberg Fernández (bijlage 4) mijn sectievoorzitter die mij sinds mijn aanstelling kent. Haar zeer positieve beoordeling over mijn betrokkenheid, professionaliteit en proactieve houding bevestigt mijn constructieve bijdrage aan de sectie en mijn vakinhoudelijke expertise.</p>
+
+      <h3 class="sec-subtitle reveal">3.2 Lesgevende taak</h3>
+      <p class="reveal">Naast de positieve evaluatie van mijn leidinggevende en de lesobservaties leidinggevenden, verwijs ik in dit onderdeel naar de evaluaties van mijn leerlingen (bijlagen 12 t/m 16). Uit de leerlingenevaluaties blijkt dat ik meer expliciete aandacht kan besteden aan de rol van Spaans in vervolgopleidingen en toekomstige loopbanen. Ik herken dat dit in eerdere jaren een onderdeel van mijn lessen was, maar dat dit de afgelopen periode minder nadrukkelijk aan bod is gekomen. In mijn lessen heb ik vaker gesproken over talen in het algemeen, waardoor de concrete koppeling met mijn eigen vak soms naar de achtergrond is verschoven. Dit neem ik opnieuw bewust mee in mijn lessen, zodat leerlingen beter zien welke mogelijkheden het vak Spaans hen biedt in hun toekomst.</p>
+      <p class="reveal reveal-d1">Het onderdeel "tips en tops" vind ik binnen de leerlingenevaluaties het meest waardevol, omdat leerlingen hier in hun eigen woorden kunnen aangeven wat zij daadwerkelijk ervaren. Bij de "tops" wordt herhaaldelijk genoemd dat mijn uitleg duidelijk is, dat de lessen leerzaam en afwisselend zijn en dat het helder is wat er verwacht wordt voor toetsen en examens. Ook geven leerlingen aan dat zij de lessen als prettig ervaren en dat de voorbereiding op toetsen en het eindexamen een sterk punt is. In meerdere klassen wordt genoemd dat zij mijn lessen als gezellig, prettig en motiverend ervaren. Zo schrijven leerlingen uit 5hsptl2 dat zij "veel leren", dat de lessen "actief en afwisselend" zijn en dat mijn website "vele veel enorm heeft geholpen". Leerlingen uit 6v noemen dat de lessen "duidelijk", "gezellig" en "productief" zijn en dat herhaling hen helpt te leren. Ook uit 5vF blijkt dat mijn uitleg goed aansluit, dat ik goed en duidelijk kan uitleggen: "we krijgen goed en duidelijke uitleg en al helemaal wat er op de toets komt". Deze waardering sluit aan bij de observaties van mijn leidinggevenden, waarin wordt benoemd dat mijn lessen goed voorbereid, afwisselend, gestructureerd en volledig in het Spaans zijn, met effectieve inzet van interactieve en formatieve werkvormen.</p>
+      <p class="reveal reveal-d2">Tegelijkertijd benoemen leerlingen in hun "tips" waardevolle ontwikkelpunten: zij hebben meer tijd nodig om huiswerk te maken en in één klas wordt aangegeven dat het helpt wanneer uitleg in het Spaans soms kort in het Nederlands wordt verduidelijkt. Deze signalen neem ik serieus. Ik herken dat mijn focus op tempo, inhoud en ambitie voor veel leerlingen goed werkt maar dat sommige leerlingen daarbij soms wat meer tijd nodig hebben in de les.</p>
+      <p class="reveal reveal-d2">Omdat ik bewust werk volgens het principe doeltaal= voertaal, een speerpunt binnen de sectie Spaans, weet ik dat deze aanpak in het begin intensief kan zijn. Lesobservaties laten zien dat dit in de praktijk effectief is: leerlingen begrijpen de Spaanse instructie en nemen actief deel aan de lessen. Tegelijkertijd vraagt deze werkwijze om een goede afstemming tussen uitdaging en begrijpelijkheid voor leerlingen.</p>
+      <p class="reveal reveal-d3">Daarom verfijn ik mijn lessen door meer verwerkingstijd in te bouwen, formatieve checkmomenten te gebruiken en kernbegrippen waar nodig kort in het Nederlands toe te lichten, zonder de doeltaal los te laten. Zo blijft mijn onderwijs zowel ambitieus als toegankelijk.</p>
+
+      <h3 class="sec-subtitle reveal">3.3 Mentoraat</h3>
+      <p class="reveal">Op eigen verzoek vervul ik dit schooljaar een mentoraat, klas 5vF. Binnen deze rol geef ik concrete invulling aan het uitgangspunt uit het schoolplan dat onderwijs verder gaat dan kennisoverdracht. Ik bied mijn mentorleerlingen structurele begeleiding waarbij ik aandacht heb voor zowel hun school prestaties als hun sociaal-emotionele ontwikkeling.</p>
+      <p class="reveal reveal-d1">Binnen mijn mentorschap werk ik met een vaste begeleidingsstructuur en heb ik regelmatig individuele, persoonlijke gesprekken met mijn mentorleerlingen. Hierin bespreken we zowel schoolresultaten als persoonlijk welzijn, waardoor leerlingen ruimte krijgen om vragen en zorgen te delen en zich gesteund voelen in hun ontwikkeling.</p>
+      <p class="reveal reveal-d1">Wanneer nodig neem ik ook buiten de geplande driehoeksgesprekken contact op met ouders om hen tijdig te betrekken bij de voortgang of om samen oplossingen te zoeken wanneer een leerling extra ondersteuning nodig heeft. Deze proactieve communicatie zorgt voor een open dialoog en gezamenlijke verantwoordelijkheid voor de ontwikkeling van de leerling.</p>
+      <p class="reveal reveal-d2">Ik begeleid mijn mentorleerlingen actief bij het reflecteren op hun eigen leerproces, onder andere door middel van gesprekken en reflectieformulieren. Daarbij help ik hen stil te staan bij wat goed gaat en waar zij zich verder in kunnen ontwikkelen, zodat zij stap voor stap meer inzicht en verantwoordelijkheid krijgen voor hun eigen leren.</p>
+      <p class="reveal reveal-d2">Wanneer dat nodig is, zoek ik actief de samenwerking met de mentorbegeleider en trajectbegeleiders om de begeleiding van leerlingen goed op elkaar af te stemmen. Voor een verdere onderbouwing van mijn mentorschap verwijs ik naar de evaluatie van mijn leidinggevende Hatice Güzeler (bijlage 8) en het stuk (bijlage17) en evaluatie van mentorbegeleider Isabelle Jager (bijlage7). Hierin kunt u het volgende lezen: "In haar rol als mentor laat Candi zien dat zij goed kan luisteren naar leerlingen en oog heeft voor zowel hun schoolse als persoonlijke ontwikkeling. Zij betrekt ouders op een zorgvuldige en effectieve manier bij problematiek rondom leerlingen en weet goed wanneer opschaling naar mentorbegeleiding noodzakelijk is. Wat Candi onderscheidt, is haar analytische aanpak en overzicht. Zij houdt leerlinggegevens zeer gestructureerd bij in een uitgebreid en overzichtelijk Excel-document. Dit stelt haar in staat om tijdig te signaleren, doelgericht te handelen en op de juiste momenten te schakelen. Deze werkwijze draagt bij aan continuïteit en kwaliteit in de begeleiding van haar mentorklas."</p>
+      <p class="reveal reveal-d3">Hun evaluaties bevestigen mijn professionele en betrokken invulling van het mentoraat en tonen aan dat ik mijn rol als mentor bewust en professioneel vormgeef, in lijn met mijn Persoonlijk Ontwikkel Plan (POP).</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 4. POP ─── -->
+<hr class="sep" />
+<div id="sec-pop" class="section bg-white" style="padding-top:90px;padding-bottom:90px;max-width:100%">
+  <div style="max-width:1240px;margin:0 auto">
+  <p class="sec-eyebrow reveal">04 — Persoonlijk Ontwikkel Plan (POP) (f)</p>
+  <h2 class="sec-title reveal">4. Persoonlijk Ontwikkel Plan (POP)</h2>
+  <div class="two-col">
+    <div class="sticky-col">
+      <div class="hl-card reveal">
+        <div class="hl-card-lbl">✦ 4 pijlers schoolplan 2025–2029</div>
+        <div class="hl-card-title">Professionalisering in lijn met de schoolvisie</div>
+        <div class="hl-card-desc">Persoonlijke ontwikkeling &amp; welzijn · Digitale geletterdheid · Burgerschap &amp; maatschappelijke betrokkenheid · Onderwijskwaliteit &amp; differentiatie.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3 class="sec-subtitle reveal">4.1 Inleiding</h3>
+      <p class="reveal">Als docent Spaans streef ik naar continue professionele ontwikkeling die aansluit bij mijn visie als docent Spaans en de onderwijskundige visie van het Jac. P. Thijsse College. Dit POP beschrijft mijn ontwikkeltraject en toont hoe mijn professionalisering bijdraagt aan de vier pijlers uit het schoolplan 2025-2029: persoonlijke ontwikkeling en welzijn, digitale geletterdheid, burgerschap en maatschappelijke betrokkenheid, en onderwijskwaliteit en differentiatie.</p>
+
+      <h3 class="sec-subtitle reveal">4.2 Mijn professionele ontwikkeling</h3>
+
+      <h4 class="sec-sub3 reveal">Digitale geletterdheid en onderwijsinnovatie</h4>
+      <p class="reveal">In lijn met het schoolplan heb ik tijdens de najaarsvakantie een intensieve online cursus gevolgd: de Canva Teachers Camp 'Evaluatie, Inclusie en Gamificatie'. Deze 50-uur durende cursus, van de EUNEIZ Universiteit Vitoria-Gasteiz, heeft mij een certificaat (bijlage 25) en 2 ECTS-studiepunten opgeleverd en sluit direct aan bij de schoolvisie op digitale geletterdheid.</p>
+      <p class="reveal reveal-d1">De cursus heeft mij praktische handvatten gegeven om technologie betekenisvol in te zetten in het onderwijs. Ik heb geleerd hoe ik visuele en duidelijke leersituaties kan ontwerpen, evaluaties kan automatiseren en ondersteuning kan personaliseren met digitale middelen. Daarnaast heb ik kennis opgedaan over het Universeel Ontwerp voor Leren (UDL) en het ontwikkelen van interactieve werkvormen door middel van gamificatie, waardoor mijn lessen afwisselender zijn geworden.</p>
+      <p class="reveal reveal-d2">Deze cursus stelt mij in staat om leerlingen beter te ondersteunen bij het verantwoord gebruik van AI en digitale middelen, conform de doelstellingen in het schoolplan waarin wordt benadrukt dat docenten actief ondersteund moeten worden bij het inzetten van AI-tools en digitale middelen.</p>
+
+      <h4 class="sec-sub3 reveal">Persoonlijke ontwikkeling en mentorschap</h4>
+      <p class="reveal">Aansluitend bij pijler 4.1 van het schoolplan heb ik mij actief ontwikkeld in mijn rol als mentor. Vorig schooljaar heb ik de training Progressiegericht Coachen via de SVOK Academie gevolgd (bijlage24), wat mij handvatten heeft gegeven om leerlingen constructief te begeleiden. Dit schooljaar heb ik expliciet een mentoraat aangevraagd om deze vaardigheden verder te ontwikkelen.</p>
+      <p class="reveal reveal-d1">Om mijn begeleidende rol te versterken, heb ik het boek <em>Executieve functies bij kinderen en adolescenten. Een praktische gids voor diagnostiek en interventie</em> van Peg Dawson en Richard Guare bestudeerd. Dit heeft mij waardevolle inzichten gegeven in de ontwikkeling van executieve functies en hoe ik leerlingen kan ondersteunen bij het versterken van vaardigheden zoals planning, zelfregulatie en probleemoplossend vermogen, aspecten die expliciet worden genoemd in het schoolplan als cruciaal voor de ontwikkeling van leerlingen.</p>
+
+      <h4 class="sec-sub3 reveal">Vakinhoudelijke professionalisering en curriculumontwikkeling</h4>
+      <p class="reveal">In het kader van mijn professionele ontwikkeling en mijn ambitie om door te groeien naar een LC-functie heb ik op 20 januari deelgenomen aan de Inspiratiedag Kerndoelen en Eindtermen, georganiseerd door SLO. Tijdens deze bijeenkomst zijn wij door experts van SLO en Cito uitgebreid bijgepraat over de nieuwste kerndoelen en eindtermen die in september 2025 zijn vastgesteld. Deze inhoudelijke verdieping sluit aan bij de afspraken die zijn gemaakt in het startgesprek met mijn leidinggevende, waarin curriculumontwikkeling expliciet is benoemd als ontwikkelpunt richting LC.</p>
+      <p class="reveal reveal-d1">Na het informatieve deel zijn we actief aan de slag gegaan in vakgroepen. Samen met collega's Spaans heb ik gewerkt aan het vertalen van de nieuwe kaders naar concrete en toepasbare lesideeën. De focus lag daarbij op de verbinding tussen curriculum en dagelijkse lespraktijk.</p>
+      <p class="reveal reveal-d1">In het voortgangsgesprek met mijn huidige teamleider is besproken dat mijn aandacht dit schooljaar deels is verschoven naar schoolbrede taken zoals het PWS-coördinatorschap en het mentoraat, die bijdragen aan mijn leiderschapsontwikkeling. Tegelijkertijd is afgesproken dat ik curriculumontwikkeling later in het schooljaar weer op zou pakken door het volgen van gerichte studiedagen, zodat ik mijn inhoudelijke bijdrage aan de sectie verder kan versterken.</p>
+      <p class="reveal reveal-d2">Deze aanpak laat zien dat ik mijn professionalisering doelgericht en gefaseerd vormgeef, met oog voor prioriteiten en met een duidelijke focus op curriculumontwikkeling als essentieel onderdeel van mijn groei richting LC-niveau en toekomstig sectieleiderschap.</p>
+      <p class="reveal reveal-d2">Op 6 februari nam ik deel aan de VIII Encuentro ProfELE en los Países Bajos in Utrecht, georganiseerd door het Instituto Cervantes en Edinumen (bijlage27). Het was een inspirerende studiedag waarin actuele vakdidactische ontwikkelingen centraal stonden. Tijdens deze dag maakte ik kennis met het project Ñ de España van De Haagse Hogeschool, waarin studenten via thema's als geschiedenis, politiek en cultuur in authentieke contexten werken aan zowel taalvaardigheid als betrokkenheid bij de Spaanse samenleving. Daarnaast heb ik mijn professionele netwerk verder uitgebreid, onder andere met collega's van de Hogeschool Utrecht. Naar aanleiding hiervan ben ik benaderd door Ana Llamazares, Teacher in Spanish Culture and Literature aan de Hogeschool Utrecht en Vakdidacticus Spaans van de Universiteit Utrecht, met het verzoek om een gastcollege te verzorgen over een les die ik heb ontwikkeld over de Spaanse Burgeroorlog en het proces van democratisering in Spanje, waarin ik laat zien hoe historische thema's en maatschappelijke waarden concreet vertaald kunnen worden naar de dagelijkse onderwijspraktijk.</p>
+      <p class="reveal reveal-d3">Daarnaast heb ik het Landelijk Congres Spaans bijgewoond op 6 en 7 maart 2026 (bijlage 28), dat zich richtte op actuele ontwikkelingen binnen het vak Spaans en het talenonderwijs, met specifieke aandacht voor curriculumvernieuwing, nieuwe eindtermen en technologische ontwikkelingen zoals AI.</p>
+      <p class="reveal reveal-d3">Momenteel bestudeer ik het boek <em>De leraar als ontwerper: Vind je eigen weg in curriculumontwikkeling</em>. Dit boek geeft mij inzichten en bruikbare tools voor het ontwerpen van een curriculum, wat bijzonder relevant is voor de actualisering van de nieuwe examenprogramma's en aansluit bij de schoolvisie op interdisciplinair leren en betekenisvol onderwijs.</p>
+
+      <h4 class="sec-sub3 reveal">Inclusiviteit en differentiatie</h4>
+      <p class="reveal">Op 19 juni 2025 heb ik het webinar van Difusión <em>Enseñar a estudiantes neurodivergentes, adaptando nuestros materiales de siempre</em> gevolgd (bijlage 26). Dit webinar heeft mij geleerd wat neurodiversiteit inhoudt, welke verschillende stoornissen er zijn en hoe ik gepubliceerd lesmateriaal kan aanpassen voor neurodivergente leerlingen. Deze kennis draagt direct bij aan de schoolvisie op maatwerk en passende begeleiding voor alle leerlingen.</p>
+      <p class="reveal reveal-d1">In het kader van mijn professionele ontwikkeling ben ik dit schooljaar bewuster en structureler gaan differentiëren in mijn lessen. Deze ontwikkeling bouwt voort op de Canva Teachers Camp 'Evaluatie, Inclusie en Gamificatie', die ik tijdens de najaarsvakantie heb gevolgd (zie 4.2). Om deze inzichten daadwerkelijk toe te passen in mijn onderwijs, heb ik www.clase.nl (bijlage 35) ontwikkeld: een leeromgeving die ik met veel betrokkenheid heb opgezet. Via deze website kunnen leerlingen werken aan opdrachten op verschillende niveaus, afgestemd op hun leerbehoeften en tempo. Hierdoor krijgen leerlingen meer regie over hun leerproces en kan ik gerichter ondersteunen waar dat nodig is.</p>
+
+      <h3 class="sec-subtitle reveal">4.3 Zichtbaarheid en leiderschapsontwikkeling</h3>
+      <p class="reveal">Dit jaar heb ik bewust gewerkt aan het vergroten van mijn zichtbaarheid binnen de schoolorganisatie, naar aanleiding van feedback dat ik soms te bescheiden of onzichtbaar optrad. Deze ontwikkeling sluit aan bij de ambitie om door te groeien en draagt bij aan de schoolvisie op samenwerking en kennisdeling.</p>
+
+      <h4 class="sec-sub3 reveal">Profielwerkstukcoördinator vwo</h4>
+      <p class="reveal">Op verzoek van mijn leidinggevende heb ik de rol van PWS-coördinator vwo op mij genomen. Deze verantwoordelijkheid vormt een belangrijke stap in mijn ontwikkeling richting meer coördinatie, leiderschap en zichtbaarheid, en is in het beoordelingsgesprek expliciet benoemd én gewaardeerd als een waardevolle bijdrage aan de school. Deze rol heeft me waardevolle ervaring opgeleverd in projectcoördinatie en leidinggevendetaken. In deze functie heb ik:</p>
+      <ul class="doc-list reveal reveal-d1">
+        <li>De handleiding voor leerlingen geactualiseerd op basis van feedback van oud-leerlingen en de werkgroep 'PWS toekomst'.</li>
+        <li>Aanpassingen doorgevoerd in het beoordelingsproces, het protocol voor havo-instromers en richtlijnen voor AI-gebruik gemaakt.</li>
+        <li>De kick-off PWS gecoördineerd en gepresenteerd voor alle vwo leerlingen.</li>
+        <li>Samen met mijn teamleider de PWS-werkdag in december georganiseerd.</li>
+        <li>Toezicht gehouden op de planning en ondersteuning geboden aan collega's en leerlingen.</li>
+        <li>De PWS presentatieavond in mei georganiseerd.</li>
+      </ul>
+      <p class="reveal reveal-d2">Deze coördinerende rol heeft mij inzicht gegeven in schoolbrede processen en heeft mijn vaardigheden op het gebied van projectmanagement, communicatie en begeleiding van collega's verder ontwikkeld. Het vertrouwen dat in mij is gesteld, ervaar ik als een belangrijke stap in mijn professionele groei.</p>
+
+      <h4 class="sec-sub3 reveal">Kennisdeling en externe zichtbaarheid</h4>
+      <p class="reveal">Om mijn vakinhoudelijke expertise te delen met de bredere onderwijsgemeenschap heb ik mij actief ingezet op zowel inhoudelijk als netwerkgericht niveau. Zo heb ik dit schooljaar twee artikelen gepubliceerd in het tijdschrift FOCO van de Vereniging Docenten Spaans in Nederland.</p>
+      <p class="reveal reveal-d1">In het eerste artikel (bijlage 33) beschrijf ik mijn aanpak bij de voorbereiding op de toets leesvaardigheid, waarin ik taalvaardigheid combineer met culturele context, digitale leermiddelen en differentiatie. Hiermee laat ik zien hoe ik abstracte examenvaardigheden vertaal naar betekenisvol en samenhangend onderwijs. In het tweede artikel (bijlage 34) reflecteer ik op mijn deelname aan de Canva Teachers Camp, waarbij ik concrete voorbeelden deel van ontwikkeld lesmateriaal en laat zien hoe digitale middelen kunnen bijdragen aan motiverend en inclusief onderwijs. Deze publicaties dragen bij aan mijn professionele zichtbaarheid en versterken mijn positie als vakdidactisch expert binnen het talenonderwijs Spaans.</p>
+      <p class="reveal reveal-d2">Daarnaast ben ik actief binnen het informele netwerk van docenten Spaans in de regio Grote Amsterdam, waarin collegiale consultatie, kennisdeling en het bespreken van examens en vakontwikkelingen centraal staan. In de aanbevelingsbrief van Jeroen Verzijden, Spinoza Lyceum, (bijlage 19) kunt u lezen dat hij mijn initiatief, betrokkenheid en bijdrage aan professionele dialoog en onderwijsontwikkeling binnen dit netwerk benadrukt. Ook uit de brief van Sharon Held, Alkwin Kollege (bijlage 18) blijkt dat ik binnen dit netwerk een actieve en verbindende rol vervul en word gezien als een van de drijvende krachten achter de inhoudelijke uitwisseling tussen collega's.</p>
+      <p class="reveal reveal-d2">Mijn externe vakexpertise wordt verder onderstreept door het feit dat ik ben benaderd door Ana Llamazares (Hogeschool Utrecht / Vakdidacticus Spaans Universiteit Utrecht) met het verzoek om een gastlecture te verzorgen. Deze uitnodiging ervaar ik als een erkenning van mijn vakinhoudelijke en didactische expertise.</p>
+      <p class="reveal reveal-d3">Door de combinatie van publiceren, netwerkdeelname, kennisdeling en externe uitnodigingen werk ik bewust aan mijn zichtbaarheid en mijn rol als inhoudelijk expert binnen en buiten de school. Deze activiteiten laten zien dat ik niet alleen reflecteer op mijn eigen praktijk, maar ook actief bijdraag aan de ontwikkeling van het vak en collega's inspireer. Dit sluit aan bij de schoolvisie op samenwerking en kennisdeling.</p>
+
+      <h3 class="sec-subtitle reveal">4.4 Toekomst</h3>
+      <p class="reveal">Als docent ben ik vastbesloten om mij voortdurend te ontwikkelen. Dit streven is duidelijk terug te zien in mijn curriculum vitae (bijlage 2). Ik ben van nature nieuwsgierig en houd mij aan het Spaanse gezegde: <em>"Nunca te acostarás sin saber una cosa más"</em> oftewel, je gaat nooit naar bed zonder iets nieuws te hebben geleerd.</p>
+      <p class="reveal reveal-d1">In de nabije toekomst richt ik mij op het verdiepen in de nieuwe examenprogramma's voor Spaans. Mijn doel is om samen met mijn collega's het curriculum hierop aan te passen. Ik ben van plan om de nieuwe examenprogramma's grondig te analyseren en cursussen of werkdagen te volgen die zich op dit onderwerp richten. Daarnaast blijf ik de sectie ondersteunen bij het evalueren en verbeteren van de resultaten. Hiervoor heb ik reflectieformulieren ontworpen voor die mijn collega's eenvoudig kunnen aanpassen voor elke jaarlaag, zodat er binnen de sectie een uniforme aanpak wordt gehanteerd.</p>
+      <p class="reveal reveal-d2">In de verdere toekomst wil ik de rol van sectievoorzitter op me nemen, wanneer de huidige sectievoorzitter met pensioen gaat. Dat lijkt me een logische stap in mijn carrière en mijn collega's van de sectie zijn het eens met deze beslissing. Samen met mijn sectievoorzitter ben ik vanaf het begin bij de sectie betrokken. Ik heb actief bijgedragen aan het proces waarin Spaans een gelijkwaardig vak is geworden op het Jac. P. Thijsse, wat niet altijd zo is geweest. Samen hebben we eraan gewerkt om het vak te laten groeien en dezelfde rechten te geven als de andere talen op school.</p>
+      <p class="reveal reveal-d2">Mijn persoonlijke inzet binnen de sectie blijkt onder meer uit de succesvolle uitwisseling met het IES Santamarca in Madrid. Deze uitwisseling kwam tot stand na mijn contact met verschillende scholen in Madrid en een ontmoeting met de rector van Santamarca tijdens een vakantie. Uit die ontmoeting is een uitwisseling voortgekomen die jaren tussen beide scholen plaatsvond. Deze uitwisseling heeft meerdere jaren plaatsgevonden en ik heb een paar jaar de organisatie ervan samen met mijn sectieleider met veel enthousiasme opgenomen.</p>
+      <p class="reveal reveal-d3">Een paar jaar op rij scoorden mijn eindexamenklassen boven het nationale gemiddelde. Een van mijn doelstellingen is dat de sectie goede resultaten behaalt bij het eindexamen. Voor mij is de sectie veel meer dan een groep collega's; het is een project dat ik heb zien ontstaan en waar ik me zeer aan verbonden voel.</p>
+      <p class="reveal reveal-d3">Op het gebied van sectieleiderschap richt ik mij vooral op het versterken van mijn leiderschapsvaardigheden. Hoewel ik hier het afgelopen jaar al aanzienlijke vooruitgang in heb geboekt, ben ik vastbesloten om deze groei verder te bevorderen door nascholing in leiderschap te volgen. De samenwerking met de huidige sectievoorzitter heeft mij al veel inzicht gegeven in het functioneren van de sectie en de verantwoordelijkheden van een sectievoorzitter. Sinds vorig jaar ben ik nog nauwer betrokken bij de besluitvorming en alle aspecten die samenhangen met het zijn van sectievoorzitter.</p>
+      <p class="reveal reveal-d4">Ik kijk ernaar uit om mijn kennis en vaardigheden verder uit te breiden en een nog grotere bijdrage te leveren aan de sectie en de school.</p>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ─── 5. WERKGROEPEN ─── -->
+<hr class="sep" />
+<div id="sec-werkgroepen" class="section">
+  <p class="sec-eyebrow reveal">05 — Onderwijsontwikkeling in werkgroepen (g)</p>
+  <h2 class="sec-title reveal">5. Onderwijsontwikkeling in werkgroepen</h2>
+  <div class="two-col">
+    <div class="sticky-col">
+      <div class="hl-card reveal">
+        <div class="hl-card-title">OT MVT · Schoolbreed bijdragen aan onderwijsontwikkeling</div>
+        <div class="hl-card-desc">Actief lid van het Ontwikkel Team Moderne Vreemde Talen en de werkgroep PWS toekomst — van uniformering PTA tot keuzeprocessen en curriculumvernieuwing.</div>
+      </div>
+      <div class="hl-card reveal reveal-d1" style="margin-top:14px">
+        <div class="hl-card-lbl">✦ Spotlight</div>
+        <div class="hl-card-title">PWS-coördinator VWO</div>
+        <div class="hl-card-desc">Coördinatie van het profielwerkstuktraject voor alle VWO-leerlingen — van kick-off tot presentatieavond, inclusief procesmanagement en collegiale begeleiding.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3 class="sec-subtitle reveal">5.1 Ontwikkel Team Moderne Vreemde Talen (OT MVT)</h3>
+      <p class="reveal">Als actief lid van het Ontwikkel Team Moderne Vreemde Talen (OT MVT) sinds de implementatie van de Ontwikkel Teams, lever ik een positieve bijdrage aan de onderwijsontwikkeling. Aanvankelijk richtten wij ons op intensievere samenwerking binnen de secties Frans, Duits en Spaans met als doel het uniformeren van de PTA's en het bevorderen van het gebruik van de doeltaal. De afgelopen jaren hebben wij ons geconcentreerd op het creëren van een evenwichtiger verdeling van de verschillende moderne vreemde talen. Dit is sinds vorig jaar met succes gerealiseerd. Momenteel zijn wij bezig met het evalueren en kijken naar de mogelijkheden en oplossingen voor komend schooljaar in het kader van het veilig kunnen stellen van de keuzeprocessen. Mijn betrokkenheid bij het OT MVT stelt mij in staat om proactief bij te dragen aan de onderwijsontwikkeling in samenwerking met mijn collega's.</p>
+
+      <h3 class="sec-subtitle reveal">5.2 PWS coördinatorschap vwo</h3>
+      <p class="reveal">Zoals beschreven in paragraaf 4.3 (PWS-coördinator vwo) heb ik op verzoek van mijn leidinggevende de rol van PWS-coördinator voor het vwo op mij genomen. Deze opdracht is mij gegeven in het kader van mijn professionele ontwikkeling richting meer, coördinatie, leiderschap en zichtbaarheid en wordt ook expliciet benoemd en gewaardeerd in het beoordelingsgesprek met mijn leidinggevende.</p>
+      <p class="reveal reveal-d1">In deze rol lever ik een actieve en proactieve bijdrage aan schoolbrede onderwijsontwikkeling, met specifieke aandacht voor de begeleiding van leerlingen binnen het profielwerkstuktraject. Ook zit ik in deze rol in de werkgroep PWS toekomst. Binnen deze overleggen denk ik mee over zowel de inhoudelijke als organisatorische doorontwikkeling van het PWS, zoals de planning PWS havo met afstemming vwo traject, begeleiding en AI gebruik.</p>
+      <p class="reveal reveal-d2">Uit de evaluaties van mijn leidinggevende (bijlage 8) en de brief van mentorbegeleider (bijlage 17) blijkt dat ik deze rol gestructureerd, zorgvuldig en zelfstandig uitvoer. Er wordt benoemd dat ik overzicht houd, verantwoordelijkheid neem en zorg draag voor een voorspelbaar en goed georganiseerd PWS-traject voor zowel leerlingen als collega's. Door actief af te stemmen met betrokken collega's en werkgroep draag ik bij aan een gezamenlijke aanpak binnen het vwo.</p>
+      <p class="reveal reveal-d3">Naast de organisatorische kant fungeer ik in deze rol als aanspreekpunt voor collega's en leerlingen, waarbij ik ondersteuning bied, meedenk en knelpunten tijdig signaleer. Deze manier van werken laat zien dat ik, samen met andere docenten en onder aansturing van mijn leidinggevende, verantwoordelijkheid neem voor schoolbrede processen en actief bijdraag aan de ontwikkeling van het onderwijs en de begeleiding van leerlingen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 6. VRAAGBAAK ─── -->
+<hr class="sep" />
+<div id="sec-vraagbaak" class="section bg-white" style="padding-top:90px;padding-bottom:90px;max-width:100%">
+  <div style="max-width:1240px;margin:0 auto">
+  <p class="sec-eyebrow reveal">06 — Vraagbaak en begeleider (h en i)</p>
+  <h2 class="sec-title reveal">6. Vraagbaak en begeleider</h2>
+  <div class="two-col">
+    <div class="sticky-col">
+      <div class="hl-card reveal">
+        <div class="hl-card-lbl">✦ Begeleider collega's</div>
+        <div class="hl-card-title">Lio's, zij-instromers &amp; nieuwe collega's</div>
+        <div class="hl-card-desc">Al jaren begeleidt Candi tweedegraads- en eerstegraads-lio's en nieuwe collega's. Structurele, opbouwende begeleiding, ook in contact met de opleiding.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3 class="sec-subtitle reveal">6.1 Sectie Spaans: Samenwerking, jaarlaagcoördinator en nieuwe curriculum</h3>
+      <p class="reveal">Collega's weten mij te vinden als vakinhoudelijk aanspreekpunt en sparringpartner bij vragen over lesinhoud, didactische keuzes, toetsing en complexe leerlingensituaties. In deze gesprekken denk ik actief mee en zoeken we gezamenlijk naar passende oplossingen. Daarbij heb ik niet alleen oog voor de inhoud, maar ook voor het welbevinden van collega's, wat ik zie als een belangrijk onderdeel van professioneel samenwerken binnen de sectie.</p>
+      <p class="reveal reveal-d1">Binnen de sectie Spaans lever ik, in samenwerking met collega's en onder aansturing van de sectieleider een proactieve bijdrage aan de ontwikkeling van het onderwijs. Van mijn sectieleider heb ik expliciet de opdracht gekregen om mij te verdiepen in het nieuwe curriculum Spaans en deze ontwikkelingen te volgen en te vertalen naar de praktijk van de sectie.</p>
+      <p class="reveal reveal-d1">Deze opdracht sluit aan bij de afspraken die zijn gemaakt in de gesprekken met mijn leidinggevenden. In dit kader neem ik deel aan relevante bijeenkomsten en studiedagen over de nieuwe kerndoelen en eindtermen en houd ik ontwikkelingen nauwlettend bij.</p>
+      <p class="reveal reveal-d2">De opgedane inzichten deel ik binnen de sectie. Daarbij denk ik actief mee over de gevolgen van curriculumvernieuwing voor de opbouw van het lesprogramma, de samenhang tussen jaarlagen en de aansluiting tussen onder- en bovenbouw. Deze rol sluit aan bij mijn positie als vakinhoudelijk aanspreekpunt.</p>
+      <p class="reveal reveal-d2">Uit de collega-evaluaties blijkt dat ik binnen de sectie Spaans een betrokken, toegankelijk en vakinhoudelijk sterk persoon ben, die actief bijdraagt aan samenwerking en kennisdeling. Collega Flavia Trigüy (bijlage 6) beschrijft dat ik materiaal, vakkennis en evaluaties van lesmateriaal met haar en de sectie deel en dat ik bereid ben mee te denken en te helpen wanneer zij ergens vastloopt. Ook waardeert zij dat ik mijn expertise inzet om collega's te helpen bij het ontwikkelen van opdrachten. Collega Ilene Petersen (bijlage 5) bevestigt dit beeld. Zij schrijft dat ik actief overleg met sectiegenoten, hen op de hoogte houd van nieuwe vakontwikkelingen en als eerste klaarsta wanneer iemand een vraag heeft of ergens tegenaan loopt. In haar evaluatie wordt benadrukt dat ik een prettige, warme en inhoudelijke bijdrage lever tijdens sectievergaderingen en collega's help door ideeën, materiaal en inzichten te delen wanneer zij dat nodig hebben. Ook mijn sectieleider Juanita Grimberg-Fernández (bijlage 4 en bijlage 20) benoemt dat ik een centrale rol vervul binnen de sectie. Zij omschrijft mij als iemand met een proactieve houding, brede vakdidactische en pedagogische expertise en het vermogen om verantwoordelijkheid te dragen voor meerdere jaarlagen. Zij benadrukt dat mijn bereidheid om kennis te delen en collega's te ondersteunen bijdraagt aan een sterke sectiecultuur en professionele samenwerking binnen de sectie.</p>
+      <p class="reveal reveal-d3">Mijn samenwerking reikt verder dan het Jac. P. Thijsse College. Zo ondersteun ik de collega Spaans van het Supreme College wanneer zij vragen heeft of materiaal nodig heeft en deel ik mijn expertise wanneer zij dit vraagt. Daarnaast ben ik al jaren actief binnen het netwerk Spaans Groot Amsterdam, waar collega's van onder meer het Spinoza Lyceum, het Alkwin College en het IJburg College samenwerken (zie 4.3).</p>
+      <p class="reveal reveal-d3">Deze evaluaties laten zien dat ik niet alleen binnen mijn eigen sectie, maar ook schooloverstijgend fungeer als vakinhoudelijk aanspreekpunt, sparringpartner en begeleider van collega's. Dit illustreert mijn professionele houding en sluit aan bij de LC-criteria voor samenwerking, ondersteuning van collega's en vakinhoudelijke deskundigheid.</p>
+      <p class="reveal reveal-d4">Door initiatief te nemen, kennis te delen en samen te werken met collega's draag ik bij aan een gezamenlijke voorbereiding van de sectie op toekomstige ontwikkelingen. Op deze manier lever ik een structurele bijdrage aan onderwijsontwikkeling binnen de sectie Spaans.</p>
+
+      <h3 class="sec-subtitle reveal">6.2 Begeleider</h3>
+      <p class="reveal">Al jaren begeleid ik binnen de sectie zowel tweedegraads- en eerstegraads-lio's als nieuwe collega's. Dit jaar begeleid ik een zij-instromer van de lerarenopleiding Spaans aan de Hogeschool Utrecht (HU). In dit traject bezoek ik haar lessen, plannen we regelmatige overlegmomenten in en lees ik mee met haar verslagen. Ik bied haar structurele, opbouwende feedback en onderhoud daarnaast contact met haar begeleider aan de HU over haar voortgang. Ook besteed ik aandacht aan haar welbevinden, omdat ik uit ervaring weet hoeveel druk de combinatie van studie en werk kan geven.</p>
+      <p class="reveal reveal-d1">In de evaluatie die zij voor mij heeft ingevuld (zie bijlage 6) geeft zij aan dat zij zich door mij gesteund voelt in haar professionele groei. Zo schrijft zij: "Candi heeft mij, als nieuwe collega en student, de afgelopen twee jaar begeleid. Ik ben ontzettend blij met haar begeleiding. Ik heb veel van haar mogen leren en zij heeft mij geholpen met dingen waar ik tegenaan liep en met zaken die nieuw voor mij waren. Ik ben erg dankbaar"</p>
+      <p class="reveal reveal-d2">Ook benoemt zij dat ik veel materiaal, vakkennis en evaluaties van lesmateriaal deel met de sectie, waardoor niet alleen zij maar ook anderen binnen het team hiervan profiteren. In haar woorden: ik "ben altijd open om te helpen" en "deel nieuwe ontwikkelingen met mijn collega's."</p>
+      <p class="reveal reveal-d2">De evaluatie benadrukt daarnaast dat ik haar heb ondersteund bij leerlingbegeleiding. Zij waardeert dat ik haar "altijd op weg help wanneer iets nieuw of lastig is".</p>
+      <p class="reveal reveal-d3">Daarnaast begeleid ik dit schooljaar een onervaren collega die lesgeeft aan een examenklas. Op verzoek heb ik deze begeleidende rol op mij genomen, waarmee ik actief bijdraag aan de ondersteuning van collega's en de borging van kwaliteit binnen de sectie.</p>
+      <p class="reveal reveal-d3">Deze beoordeling bevestigt dat ik binnen de sectie fungeer als een betrokken, deskundige en toegankelijke begeleider, die (nieuwe) collega's professioneel ondersteunt en bijdraagt aan hun ontwikkeling in hun loopbaan op school. Dit sluit direct aan bij de LC-criteria op het gebied van coaching, collegiale begeleiding en kennisdeling.</p>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ─── 7. VOORBEELDFUNCTIE ─── -->
+<hr class="sep" />
+<div id="sec-voorbeeldfunctie" class="section">
+  <p class="sec-eyebrow reveal">07 — Voorbeeldfunctie (j)</p>
+  <h2 class="sec-title reveal">7. Voorbeeldfunctie</h2>
+  <div class="two-col">
+    <div class="sticky-col">
+      <div class="hl-card reveal">
+        <div class="hl-card-lbl">✦ Leerlingen over Candi</div>
+        <div class="hl-card-title">"De allerleukste Spaans docent"</div>
+        <div class="hl-card-desc">Leerlingevaluaties benoemen enthousiasme, duidelijkheid, gezelligheid en een veilige leeromgeving als terugkerende thema's in Candi's lessen.</div>
+      </div>
+      <div class="hl-card reveal reveal-d1" style="margin-top:14px;background:#fff;border:1px solid var(--border)">
+        <div class="hl-card-lbl">✦ clase.nl</div>
+        <div class="hl-card-title">Zelfontworpen leeromgeving</div>
+        <div class="hl-card-desc">clase.nl website voor leerlingen Spaans, ontwikkeld en onderhouden door Candi.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <h3 class="sec-subtitle reveal">7.1 Naar collega's</h3>
+      <p class="reveal">Binnen het JPT vervul ik een duidelijke voorbeeldfunctie, zowel binnen de sectie Spaans als schoolbreed. Uit de evaluaties van mijn leidinggevende, collega's en sectieleider blijkt dat ik mij kenmerk door een proactieve, deskundige, leergierige en vernieuwingsgerichte houding. In haar aanbevelingsbrief (bijlage 20) schrijft mijn sectieleider, Juanita Grimberg-Fernández, dat ik "een toegewijde en loyale collega ben, wiens kennis en ervaring van onschatbare waarde zijn voor de sectie Spaans". Ook benadrukt zij dat ik "altijd bereid ben extra stappen te zetten" om leerlingen en collega's verder te helpen. Deze woorden onderstrepen mijn rol als voorbeeld in professionaliteit, vakmanschap en collegiale betrokkenheid.</p>
+      <p class="reveal reveal-d1">Mijn deur staat altijd open voor collega's en stagiaires die willen meekijken of sparren over vakdidactiek, digitale middelen, differentiatie of leerlingbegeleiding. Ik deel mijn materiaal, ideeën en inzichten actief met de sectie, zoals ook blijkt uit de evaluatie van mijn collega's.</p>
+      <p class="reveal reveal-d2">Daarnaast vind ik het belangrijk om voorop te lopen in onderwijsontwikkeling. Ik vernieuw mijn lessen continu, experimenteer graag met nieuwe werkvormen en digitale tools, en deel deze inzichten met collega's. Dit blijkt onder meer uit mijn inzet rondom EdTech, mijn zelfontworpen leeromgeving www.clase.nl. Deze open en onderzoekende houding maakt dat collega's mij gemakkelijk weten te vinden als vakinhoudelijk aanspreekpunt en als inspirerende sparringpartner. Mijn voorbeeldrol strekt zich ook buiten de school uit. Binnen het regionale netwerk Spaans Groot Amsterdam beschrijven collega's mij (zie 4.3) als een drijvende kracht die collega's verbindt, expertise deelt en actief bijdraagt aan vakinhoudelijke uitwisseling en professionele dialoog.</p>
+      <p class="reveal reveal-d3">Alles wat ik leer, of dit nu uit nascholing, collegiale consultatie of mijn eigen onderwijspraktijk komt, deel ik met collega's, omdat ik geloof dat we door kennisdeling samen groeien. Deze houding, in combinatie met mijn zichtbaarheid en vakinhoudelijke expertise, maakt dat ik binnen en buiten de school fungeer als voorbeeld voor collega's.</p>
+
+      <h3 class="sec-subtitle reveal">7.2 Naar leerlingen</h3>
+      <p class="reveal">Naar mijn leerlingen toe vind ik het belangrijk om zelf het goede voorbeeld te geven. Ik ben consequent in mijn verwachtingen, wat ik van hen vraag, doe ik zelf ook. Ik ben altijd respectvol in mijn communicatie en ik zorg voor rust, duidelijkheid en structuur in mijn lessen. Deze houding wordt ook herkend door mijn leerlingen. In de "tops" van de leerlingenevaluaties (bijlagen 12 t/m 16) schrijven zij dat ze mij enthousiast en duidelijk vinden. Leerlingen geven aan dat zij mijn duidelijke uitleg, positieve energie, goede voorbereiding op toetsen, afwisselende lessen en veilige sfeer waarderen. Ook benoemen zij dat ik "om de klas geef", dat de lessen "gezellig en leerzaam" zijn. Dat leerlingen mij in hun woorden "de allerleukste Spaans docent" noemen, bevestigt voor mij dat ik voor hen iemand ben die vertrouwen uitstraalt en een positief voorbeeld is in houding, gedrag en werkethiek.</p>
+      <p class="reveal reveal-d1">Door consequent te zijn, respect te tonen en zelf betrokkenheid en professionaliteit voor te leven, creëer ik een leeromgeving waarin leerlingen zich gezien voelen en waarin zij zich durven ontwikkelen. Dat is voor mij de kern van een voorbeeldfunctie richting leerlingen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 8. NAWOORD ─── -->
+<hr class="sep" />
+<div id="sec-nawoord" class="section-full bg-accent" style="padding-top:90px;padding-bottom:90px">
+  <div class="section-inner">
+    <p class="sec-eyebrow reveal" style="text-align:center">08 — Nawoord</p>
+    <h2 class="sec-title reveal" style="text-align:center;margin-bottom:50px">8. Nawoord</h2>
+    <div class="nawoord-box reveal">
+      <p>Hartelijk dank voor het lezen van mijn portfolio. Ik hoop dat u een helder beeld heeft gekregen van mijn ontwikkeling, mijn inzet en mijn kwaliteiten als toekomstig LC-docent. Mocht u willen teruggrijpen op andere perspectieven, dan verwijs ik u graag naar de aanbevelingsbrieven, collega-evaluaties en de reacties van (oud-)leerlingen die in de bijlagen zijn opgenomen.</p>
+      <p>Het samenstellen van dit portfolio gaf mij de gelegenheid om (oud-)leerlingen te vragen hoe zij mijn lessen en begeleiding hebben ervaren (zie bijlage 32). Hun woorden hebben mij diep geraakt. Leerlingen beschreven mijn lessen als leerzaam, veilig, persoonlijk en energiek, en noemden dat zij zich "gezien voelden" en dat mijn "enthousiasme aanstekelijk werkte". Anderen schreven dat ik met mijn aanpak hun "plezier in Spaans" heb vergroot en dat de sfeer in de klas "ontspannen, warm en motiverend" was, waardoor zij met vertrouwen durfden te spreken in een nieuwe taal.</p>
+      <p>Het raakte mij hoe leerlingen terugblikten op kleine momenten die voor hen veel betekenden, de persoonlijke aandacht, de humor, het gevoel dat ik er altijd was als zij vastliepen, of dat zij juist durfden te groeien omdat zij zich veilig voelden. Hun woorden herinnerden mij eraan waarom ik dit vak met zoveel toewijding uitoefen: omdat onderwijs verder gaat dan taal of grammatica. Het gaat om betekenisvol zijn, het aanraken van levens, en het bijdragen aan groei, hoe klein of groot die ontwikkeling ook is. Dat besef is voor mij het waardevolste onderdeel van dit portfolio.</p>
+      <p>Voor mij is dat de essentie van lesgeven en het meest waardevolle bewijs van mijn werk. Veel waardevoller dan het opsommen van taken of prestaties is het besef dat ik voor mijn leerlingen iemand ben geweest die hen verder heeft geholpen, gesteund of geïnspireerd heeft. Met die overtuiging kijk ik uit naar de volgende stap in mijn professionele loopbaan.</p>
+    </div>
+
+    <!-- Aanbevelingsbrieven in nawoord -->
+    <div style="max-width:860px;margin:60px auto 0">
+      <h3 class="sec-subtitle reveal" style="font-size:1.4rem;margin-top:0;margin-bottom:30px">Aanbevelingsbrieven</h3>
+      <div class="recs-grid">
+        <div class="rec-card reveal" style="background:#fff">
+          <div class="rec-text">"Met veel enthousiasme schrijf ik deze aanbevelingsbrief voor Candi, die zich kandidaat stelt voor de functie van LC. Ze is een toegewijde en loyale collega, wiens kennis en ervaring van onschatbare waarde zijn voor onze sectie Spaans. [...] Haar loyaliteit, kennis en betrokkenheid maken haar tot een onmiskenbare aanwinst voor ons team. Ik kan me niet iemand beter voorstellen voor de rol van LC, en ik ondersteun haar kandidatuur van harte."</div>
+          <div class="rec-author"><div class="rec-avatar">JG</div><div><div class="rec-name">Juanita Grimberg-Fernández</div><div class="rec-role-t">Sectievoorzitter en docent Spaans · Mentrix 6vA · Castricum, 12 februari 2026</div></div></div>
+        </div>
+        <div class="rec-card reveal reveal-d1" style="background:#fff">
+          <div class="rec-text">"Candi is een 1e graad docent Spaans en mentor van een 5 vwo-klas. Zij heeft het mentoraat dit schooljaar op een zeer sterke en professionele manier opgepakt. [...] Candi toont hiermee eigenaarschap, betrouwbaarheid en een professionele houding die past bij het LC-niveau."</div>
+          <div class="rec-author"><div class="rec-avatar">IJ</div><div><div class="rec-name">Isabelle Jager</div><div class="rec-role-t">Mentorbegeleiding 456v · Jac. P. Thijsse College</div></div></div>
+        </div>
+        <div class="rec-card reveal" style="background:#fff">
+          <div class="rec-text">"Ik heb Candi meerdere jaren leren kennen als collega op het Spinoza Lyceum. In die periode heb ik haar ervaren als een zeer betrokken en bevlogen docent Spaans, met een sterke didactische basis en een duidelijke liefde voor haar vak. [...] Ik zie Candi als een professionele, betrouwbare en inspirerende docent, die zowel voor leerlingen als voor collega's van waarde is. Ik kan haar dan ook van harte aanbevelen."</div>
+          <div class="rec-author"><div class="rec-avatar">JV</div><div><div class="rec-name">Jeroen Verzijden</div><div class="rec-role-t">Docent Spaans · Spinoza Lyceum Amsterdam</div></div></div>
+        </div>
+        <div class="rec-card reveal reveal-d1" style="background:#fff">
+          <div class="rec-text">"Ik ken Candi als een bevlogen docent die er alles aan doet om Spaans leuk en aantrekkelijk te maken voor haar leerlingen. Daarnaast werk ik al jaren met haar samen in een informeel netwerk van Spaans docenten in Groot Amsterdam. [...] Candi is een van de drijvende krachten achter dit netwerk."</div>
+          <div class="rec-author"><div class="rec-avatar">SH</div><div><div class="rec-name">Sharon Held</div><div class="rec-role-t">Docent Spaans / beeldcoach · Alkwin Kollege Uithoorn</div></div></div>
+        </div>
+      </div>
+
+      <!-- Leerlingcitaten -->
+      <h3 class="sec-subtitle reveal" style="font-size:1.4rem;margin-top:56px;margin-bottom:30px">Stem van de leerlingen (bijlage 32)</h3>
+      <div class="quotes-grid">
+
+        <div class="q-card reveal">
+          <div class="q-mark">"</div>
+          <div class="q-text">Ik heb het geluk gehad om Candi 4 jaar als Spaans docent te hebben tijdens mijn middelbare schoolperiode. Bij geen enkel taalvak heb ik zoveel plezier gehad in het leren als bij Spaans, en dat komt grotendeels door de energie en plezier dat Candi meeneemt in haar lessen. Ze is streng wanneer nodig, maar zorgt ook voor een klik met al haar studenten en brengt de Spaanse cultuur mee naar haar lessen. Ze heeft aandacht voor de individu en is bereid om extra begeleiding te geven waar nodig. Al met al denk ik dat een docent die zijn/haar vak met plezier uitoefent zorgt voor plezier tijdens het leren voor studenten en daar is Candi een voorbeeld van.</div>
+          <div class="q-author">Daniel Ben Ami</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal reveal-d1">
+          <div class="q-mark">"</div>
+          <div class="q-text">Ik heb gedurende meerdere jaren het vak Spaans gevolgd op de middelbare school, waarbij ik les kreeg van mevrouw Candi Zamorano López. Haar lessen hebben mijn Spaanse lees- en schrijfvaardigheid enorm verbeterd. Mevrouw Candi maakte onder andere gebruik van woordentoetsen, presentatieopdrachten en online quizspellen, zoals Kahoot, om de lessen zo leerzaam en afwisselend mogelijk te maken. Daarnaast beschikt mevrouw Candi over een uitstekend gevoel voor humor, wat zorgde voor een prettige en ontspannen sfeer in de klas. Ik kan mij geen authentiekere Spaanse les voorstellen dan die van mevrouw Candi, gegeven door zo'n enthousiaste en gepassioneerde liefhebber van de Spaanse taal en cultuur.</div>
+          <div class="q-author">Toon Gaarthuis</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal reveal-d2">
+          <div class="q-mark">"</div>
+          <div class="q-text">Candi heeft mij twee jaar les gegeven toen ik op de havo zat, ik was zeker niet de beste in Spaans maar doordat we altijd spaans moesten spreken in de les werd ik er toch steeds beter in, ze was een super leuke lieve docent die altijd om veel om haar leerlingen gaf, en streng waar nodig was, ik ging met plezier naar de lessen. Jaren nadat ik geslaagd ben van de havo (ook in spaans) denk ik nog steeds positief terug over Candi en haar fijne lessen, mijn zusjes hebben ook les gehad van haar en denken er precies hetzelfde over.</div>
+          <div class="q-author">Arunya Guillot</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal">
+          <div class="q-mark">"</div>
+          <div class="q-text">Candi is zo'n docent die meteen een heel lokaal kan laten opleven. Met haar aanstekelijke energie, geduld en humor wist ze iedereen mee te krijgen met de lessen. Elke keer als er Spaans op het rooster was, had ik zin in de les. Waar het normaal heel spannend is om hardop een stukje in een nieuwe taal voor te moeten lezen, zorgde Candi ervoor dat bij Spaans hier een veilige sfeer voor was. Ze ziet leerlingen echt, en dat voel je als puber haarfijn goed aan. Ik gun iedereen een docent als Candi, want hoe leuk is het dat ik meer dan 10 jaar later nog steeds terugdenk aan hoe fijn die lessen waren.</div>
+          <div class="q-author">Fien Reerds</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal reveal-d1">
+          <div class="q-mark">"</div>
+          <div class="q-text">Op de middelbare school heb ik Spaanse les gehad van Candi. Voor mij was Spaans altijd een van de leukste vakken. Candi zorgde ervoor dat we op een speelse manier het alfabet leerden in de eerste weken en uiteindelijk met succes ons Spaanse eindexamen deden en afrondden. Candi is door en door Spaans, met een grote liefde voor Madrid. Mede door haar enthousiasme heb ik tijdens mijn universitaire studie mijn Erasmus Exchange in de Spaanse hoofdstad gedaan. Gracias, Candi, por ser mi profesora favorita.</div>
+          <div class="q-author">Jonas Vorstman</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal reveal-d2">
+          <div class="q-mark">"</div>
+          <div class="q-text">Ik vond Candi een erg goede docent van wie ik veel Spaans heb kunnen leren. Het was leuk dat Candi stimuleerde om Spaans te praten tijdens de les. Haar enthousiasme maakte mij ook enthousiaster om mee te doen. Ik vond het ook fijn dat ze er kort op kon zitten waardoor er orde bleef in de les. Verder vond ik het leuk om van Candi les te hebben omdat ze erg persoonlijk was naar ons toe en aardig.</div>
+          <div class="q-author">Iris de Wit</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal">
+          <div class="q-mark">"</div>
+          <div class="q-text">Ik heb van 2 vwo tot en met 6 vwo Spaans van Candi gehad en dat was altijd leuk. Je merkt gewoon dat ze echt Spaans is, en dat maakte de lessen net wat specialer en levendiger dan standaard taalles uit een boek. Ze legde duidelijk uit, had veel energie en zorgde voor een fijne sfeer in de klas. Er werd veel gelachen, maar er werd ook echt goed lesgegeven. Spaans voelde daardoor minder als "moeten" en meer als iets leuks om te leren. Ik kijk er met een goed gevoel op terug en ben blij dat ik haar als docent heb gehad.</div>
+          <div class="q-author">Rens Verbeek</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal reveal-d1">
+          <div class="q-mark">"</div>
+          <div class="q-text">Vanaf de bovenbouw op het Jac. P. Thijsse College was Candi mijn docent Spaans. Ik heb haar ervaren als een ontzettend fijne, warme en goede docent. Bij haar in de klas voelde ik me altijd gezien en ik ben ervan overtuigd dat dit een positief effect had op mijn motivatie. De sfeer in de klas was hierdoor gemoedelijk en gedreven. Candi is met uitstek mijn favoriete docent geweest van het Jac. P. Thijsse College!</div>
+          <div class="q-author">Dynta Papôt</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal reveal-d2">
+          <div class="q-mark">"</div>
+          <div class="q-text">Candi gaf Spaans op een manier die je niet snel vergeet. Omdat ze zelf Spaans is, bracht ze de taal heel natuurlijk over. In haar lessen werden we actief betrokken en spraken we veel Spaans, in plaats van alleen uit een boek te werken. Die praktische aanpak heeft ervoor gezorgd dat veel kennis is blijven hangen. Nog steeds gebruik ik wat ik toen heb geleerd in gesprekken met mijn Spaanse collega's. Ze is een erg betrokken docent die op een leuke en interactieve manier les geeft.</div>
+          <div class="q-author">Steven van der Linden</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal">
+          <div class="q-mark">"</div>
+          <div class="q-text">Candi is als docente gedreven en enthousiast maar soms ook wel een beetje strenge lerares. Ze helpt je als je sommige dingen niet begrijpt en ziet of je dingen lastig vindt en helpt je daarbij. Candi is een heel aardig persoon die altijd hallo zegt als ze je op de gangen tegenkomt. Ze is heel behulpzaam, enthousiast en gestructureerd. Soms praten we over de voetbalteams in Spanje — ik ben namelijk voor FCBarcelona en Candi is voor Real Madrid. Hier kunnen we samen over lachen en grappen. Ik vind de lessen van Candi nuttig en leerzaam.</div>
+          <div class="q-author">Karsten Kieft</div>
+          <div class="q-role">Leerling 6vB · Jac. P. Thijsse College</div>
+        </div>
+
+        <div class="q-card reveal reveal-d1">
+          <div class="q-mark">"</div>
+          <div class="q-text">Candi gaf altijd les op een leuke en humorvolle manier, maar zorgde er tegelijkertijd voor dat er structuur en duidelijkheid was. Er was ruimte voor een geintje, maar er werd ook hard gewerkt. Ik keek elke week uit naar haar lessen, omdat ze altijd gezellig en prettig waren. Dankzij haar heb ik Spaans geleerd en begrijp ik nog steeds de basis van de taal. Hier ben ik vooral op vakanties, maar ook in tal andere situaties erg blij mee.</div>
+          <div class="q-author">Lynn Admiraal</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+        <div class="q-card reveal reveal-d2">
+          <div class="q-mark">"</div>
+          <div class="q-text">Tijdens mijn middelbare schoolperiode op het Jac. P. Thijsse College heb ik vier jaar lang het vak Spaans gevolgd bij Candi. Wat voor mij het meest op de voorgrond staat is Candi haar persoonlijke betrokkenheid, zowel bij mij als bij de andere leerlingen uit de klas. Ze heeft veel persoonlijke aandacht voor iedereen, niet alleen als leerling ten aanzien van het leerproces maar zeker ook als persoon. Candi heeft een positieve insteek, neemt de tijd om te luisteren en af te stemmen op wat iedere leerling nodig heeft. Met de bovenstaande factoren gezamenlijk heeft Candi een sterke band opgebouwd met de klas, waardoor ik altijd een positieve, veilige en ontspannen sfeer heb ervaren in de klas.</div>
+          <div class="q-author">Anne Leien</div>
+          <div class="q-role">Oud-leerling</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CV ─── -->
+
+<!-- ─── CV ─── -->
+<hr class="sep" />
+<div id="sec-cv" class="section bg-white" style="padding-top:90px;padding-bottom:90px;max-width:100%">
+  <div style="max-width:1240px;margin:0 auto">
+    <p class="sec-eyebrow reveal">Bijlage 2 — Curriculum Vitae</p>
+    <h2 class="sec-title reveal">Curriculum Vitae</h2>
+    <div class="two-col">
+      <div class="sticky-col">
+        <div class="hl-card reveal">
+          <div class="hl-card-lbl">✦ Personalia</div>
+          <div class="hl-card-desc" style="font-size:.88rem;line-height:1.9;color:#555">
+            Lindenlaan 8, 1943 DW Beverwijk<br/>
+            Tel.: 0637048803<br/>
+            <a href="/cdn-cgi/l/email-protection#1f7c65725f756f6b7776756c6c7a317173" style="color:var(--accent-dark);text-underline-offset:3px;text-decoration:underline"><span class="__cf_email__" data-cfemail="9dfee7f0ddf7ede9f5f4f7eeeef8b3f3f1">[email&#160;protected]</span></a><br/>
+            Geboren op 14 mei 1973 te Madrid, Spanje
+          </div>
+        </div>
+        <div class="hl-card reveal reveal-d1" style="margin-top:14px">
+          <div class="hl-card-lbl">✦ Talen</div>
+          <div class="hl-card-desc" style="font-size:.88rem;line-height:1.9;color:#555">
+            Spaans — moedertaal<br/>Engels — vloeiend<br/>Nederlands — diploma NT2 behaald in 2001
+          </div>
+        </div>
+
+      </div>
+      <div class="prose">
+        <h3 class="sec-subtitle reveal">Opleidingen</h3>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Eerstegraadsleraar Spaans</strong><span class="date-badge">2001–2002</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Universiteit van Amsterdam — Instituut voor de Lerarenopleiding</div>
+            <div style="font-size:.88rem;color:#555">Verdiepingsonderzoek: "Spaans als startersvak op het Zaanlands Lyceum"</div>
+          </div>
+          <div style="padding:20px 0" class="reveal reveal-d1">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Doctorandus Engelse Taal- en Letterkunde</strong><span class="date-badge">1991–1996</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em">Universidad Complutense de Madrid</div>
+          </div>
+        </div>
+
+        <h3 class="sec-subtitle reveal">Werkervaring</h3>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">08/01/2006 — heden</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Jac. P. Thijsse College · Castricum</div>
+            <div style="font-size:.88rem;color:#555">HAVO/VWO onderbouw, bovenbouw en eindexamenklas (HAVO, VWO). Mentor. OT-MVT lid. PWS Coördinator vwo. Stagebegeleider (stagiaires Spaans). Uitwisseling Madrid.</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d1">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans en Engels</strong><span class="date-badge">08/01/2002 — 31/07/2006</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Spinoza Lyceum · Amsterdam</div>
+            <div style="font-size:.88rem;color:#555">VMBO/HAVO/VWO onderbouw en bovenbouw. Internationaliseringprojecten (uitwisselingen).</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d1">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">2004–2005</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Het Amsterdams Lyceum · Amsterdam</div>
+            <div style="font-size:.88rem;color:#555">Trayecto Español, VWO en HAVO. Ontwikkelen eindtermen voor Trayecto Español.</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d2">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">06/01/2003 — 01/02/2004</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em">Hogeschool voor Hotelmanagement · Amsterdam</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d2">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">2003–2004</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Nova College · Beverwijk</div>
+            <div style="font-size:.88rem;color:#555">VAVO onderwijs (1e, 2e en examenklas).</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d2">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">2002–2003</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Volksuniversiteit Amsterdam en Amstelveel</div>
+            <div style="font-size:.88rem;color:#555">Cursus groepen Spaans Intensief I en II.</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d3">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Engels</strong><span class="date-badge">02/04/2001 — 31/07/2002</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Het Zaanlands Lyceum · Zaandam</div>
+            <div style="font-size:.88rem;color:#555">HAVO/VWO onderbouw, bovenbouw.</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">1998–2001</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em">Berlitz Taalinstituut · Amsterdam</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d1">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">08/09/1998 — 31/01/1999</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Hogeschool Holland · Diemen</div>
+            <div style="font-size:.88rem;color:#555">Opleidingen Vrijetijdskunde en Nationaal Gids.</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid var(--border)" class="reveal reveal-d1">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Spaans</strong><span class="date-badge">1997</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">WORDS Language Services · Dublin, Ierland</div>
+            <div style="font-size:.88rem;color:#555">Voor The National Print Museum.</div>
+          </div>
+          <div style="padding:20px 0" class="reveal reveal-d2">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px">
+              <strong style="font-family:var(--serif);font-size:1rem">Docente Engels</strong><span class="date-badge">1994–1996</span>
+            </div>
+            <div style="font-size:.78rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Colegio San Sebastián · Madrid, Spanje</div>
+            <div style="font-size:.88rem;color:#555">Engels buitenschoolse activiteit.</div>
+          </div>
+        </div>
+
+        <h3 class="sec-subtitle reveal">Cursussen en nascholing</h3>
+        <div class="cert-grid reveal">
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Landelijk Congres Spaans Levende Talen</div><div class="cert-yr">6–7 mrt 2026</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">VIII Encuentro ProfELE en Países Bajos — Utrecht</div><div class="cert-yr">06/02/2026</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Inspiratiedag kerndoelen en eindtermen Nuffic — Utrecht</div><div class="cert-yr">20/01/2026</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Canva Teachers Camp: Utilidades de Canva en el aula — EUNEIZ (2 ECTS)</div><div class="cert-yr">okt 2025</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Progressiegericht Coachen — SVOK Academie</div><div class="cert-yr">okt–dec 2024</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Enseñar a estudiantes neurodivergentes — Webinar Difusión</div><div class="cert-yr">19/06/2025</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">La literatura en el aula ELE: otras palabras, la misma realidad</div><div class="cert-yr">14/11/2023</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Las estrategias de comunicación en las destrezas orales — Utrecht</div><div class="cert-yr">30/11/2021</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Good Practice Day Talen ICLON — Universiteit Leiden</div><div class="cert-yr">19/01/2018</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Differentiëren is te leren — CPS (4 dagdelen)</div><div class="cert-yr">mrt–apr 2017</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Good Practice Day Talen ICLON — Universiteit Leiden</div><div class="cert-yr">03/02/2017</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Examinador DELE A2-B1 escolar — Instituto Cervantes Utrecht</div><div class="cert-yr">07–19/03/2016</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Good Practice Day Talen ICLON — Universiteit Leiden</div><div class="cert-yr">29/01/2016</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Las clases de conversación en la enseñanza ELE — Instituto Cervantes</div><div class="cert-yr">13/12/2015</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Good Practice Day Talen ICLON — Universiteit Leiden</div><div class="cert-yr">30/01/2015</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Diploma programme Category 1: Spanish B — Inthinking Barcelona</div><div class="cert-yr">31/10–02/11/2014</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Técnicas y dinámicas para la utilización de las TICS en el aula — Amsterdam</div><div class="cert-yr">11/04/2014</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Opbrengstgericht talenonderwijs: bestaat dit? — ICLON Leiden</div><div class="cert-yr">31/01/2014</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Examinador DELE B1/B2 — Instituto Cervantes Utrecht</div><div class="cert-yr">26/09–11/10/2013</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Jornada de Estudios para profesores de ELE — Utrecht</div><div class="cert-yr">2013</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Op weg naar efficiënt en excellent talenonderwijs — ICLON Leiden</div><div class="cert-yr">25/01/2013</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Sesión formativa AVE-DELE para profesores — Instituto Cervantes Utrecht</div><div class="cert-yr">15/06/2012</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Goed, beter, best talenonderwijs — ICLON Leiden</div><div class="cert-yr">27/01/2012</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Jornada de Estudios para profesores de ELE — Utrecht</div><div class="cert-yr">09/04/2011</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Goed talenonderwijs: mag het ietsje meer zijn — ICLON Leiden</div><div class="cert-yr">28/01/2011</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Bijeenkomst nieuwe CE leesvaardigheid MVT — CITO Utrecht</div><div class="cert-yr">2006</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Studiedag: Leesvaardigheid in het VMBO — Nova College Haarlem</div><div class="cert-yr">2003</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Studiedag: La literatura en la clase de español — Advies Begeleidingscentrum Amsterdam</div><div class="cert-yr">2003</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Gramática Pedagógica, el ordenador y la enseñanza del español — Instituto Cervantes Utrecht</div><div class="cert-yr">2002</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Internationalisering: Europa in het onderwijs — WIDLO RuG</div><div class="cert-yr">2–4 jun 2002</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">Diploma Staatsexamen Nederlands als tweede taal Programma II — Amsterdam</div><div class="cert-yr">30/01/2001</div></div>
+          <div class="cert-item"><div class="cert-dot"></div><div class="cert-nm">II Curso Complutense de Enseñanza del Español como Lengua Extranjera — Aranjuez (50 uur)</div><div class="cert-yr">01–12/07/1996</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-tag">
+      Onderwijs dat <span class="acc">verder</span><br/>reikt dan<br/>kennisoverdracht.
+    </div>
+    <div class="footer-bot">
+      <div class="footer-copy">© 2026 Cándida Zamorano López · Portfolio LC-kandidaat · Jac. P. Thijsse College, Castricum</div>
+      <div class="footer-links">
+        <span class="footer-link" style="cursor:default">clase.nl</span>
+        <a href="#sec-cv" class="footer-link">CV</a>
+        <a href="#sec-inleiding" class="footer-link">3. Evaluaties</a>
+        <a href="#sec-pop" class="footer-link">4. POP</a>
+        <a href="#hero" class="footer-link">↑ Top</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const sections = ['sec-inleiding','sec-bevoegdheden','sec-evaluaties','sec-pop','sec-werkgroepen','sec-vraagbaak','sec-voorbeeldfunctie','sec-nawoord','sec-cv'];
+  const navLinks = document.querySelectorAll('.jump-btn[href^="#"]');
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector('.jump-btn[href="#' + e.target.id + '"]');
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(id => { const el = document.getElementById(id); if(el) navObserver.observe(el); });
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '12px 56px' : '18px 56px';
+  }, { passive: true });
+
+
+</script>
+</body>
+</html>
